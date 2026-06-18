@@ -54,3 +54,26 @@ function mudaSlide(n) {
 if (slides.length > 0) {
   mostrarSlide(currentSlide);
 }
+
+// ── Certificados Slideshow (novo) ──
+let certAtual = 0;
+const certSlides = document.querySelectorAll('.cert-slide');
+const certDotEls = document.querySelectorAll('.cert-dot');
+const certTotal = certSlides.length;
+
+function certMostra(n) {
+  certSlides.forEach(s => s.classList.remove('active'));
+  certDotEls.forEach(d => d.classList.remove('active'));
+  if (n >= certTotal) certAtual = 0;
+  else if (n < 0) certAtual = certTotal - 1;
+  else certAtual = n;
+  if (certSlides[certAtual]) {
+    certSlides[certAtual].classList.add('active');
+    if (certDotEls[certAtual]) certDotEls[certAtual].classList.add('active');
+    const ind = document.getElementById('certIndicador');
+    if (ind) ind.textContent = `${certAtual + 1} / ${certTotal}`;
+  }
+}
+function certMuda(n) { certMostra(certAtual + n); }
+function certVai(n) { certMostra(n); }
+if (certSlides.length > 0) certMostra(0);
